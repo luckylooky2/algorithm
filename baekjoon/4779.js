@@ -1,3 +1,4 @@
+// 칸토어 집합 : 분할 정복
 const fs = require("fs");
 const input = fs
   .readFileSync("/dev/stdin")

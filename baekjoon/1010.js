@@ -1,3 +1,4 @@
+// 다리 놓기 : 조합, 동적 계획법
 const fs = require("fs");
 const input = fs
   .readFileSync("/dev/stdin")

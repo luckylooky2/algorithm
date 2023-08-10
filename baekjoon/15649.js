@@ -1,3 +1,4 @@
+// N과 M (1) : 백트래킹
 const fs = require("fs");
 const input = fs
   .readFileSync("/dev/stdin")

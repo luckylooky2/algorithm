@@ -1,3 +1,4 @@
+// 수학은 비대면 강의입니다 : 브루트 포스
 const fs = require("fs");
 const lst = fs
   .readFileSync("/dev/stdin")

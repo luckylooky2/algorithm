@@ -1,3 +1,4 @@
+// N-Queen : 백트래킹, 브루트 포스
 const fs = require("fs");
 const input = parseInt(fs.readFileSync("/dev/stdin").toString().trim(), 10);
 

@@ -1,3 +1,4 @@
+// 설탕 배달 : 동적 계획법, 그리디
 const fs = require("fs");
 const [amount] = fs
   .readFileSync("/dev/stdin")

@@ -1,3 +1,4 @@
+// 색종이 만들기 : 분할 정복
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 

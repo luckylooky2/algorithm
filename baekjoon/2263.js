@@ -1,3 +1,4 @@
+// 트리의 순회 : 분할 정복
 const fs = require("fs");
 const [length, inOrder, postOrder] = fs
   .readFileSync("/dev/stdin")

@@ -1,3 +1,5 @@
+// 별 찍기 - 10 : 분할 정복
+
 // for 반복문 ver.
 // const fs = require("fs");
 // const input = parseInt(fs.readFileSync("/dev/stdin").toString().trim(), 10);

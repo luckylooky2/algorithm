@@ -1,3 +1,4 @@
+// 피보나치 함수 : 동적 계획법
 const arr = require("fs")
   .readFileSync("/dev/stdin")
   .toString()

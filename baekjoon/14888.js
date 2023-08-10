@@ -1,3 +1,5 @@
+// 연산자 끼워넣기 : 백트래킹, 브루트 포스
+
 // 최적화 이후 ver.
 const fs = require("fs");
 const input = fs

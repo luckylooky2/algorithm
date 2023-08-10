@@ -1,3 +1,4 @@
+// 히스토그램에서 가장 큰 직사각형 : 분할 정복, 세그먼트 트리
 const fs = require("fs");
 const input = fs
   .readFileSync("/dev/stdin")

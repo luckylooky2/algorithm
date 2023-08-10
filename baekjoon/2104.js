@@ -1,3 +1,4 @@
+// 부분 배열 고르기 : 분할 정복, 세그먼트 트리
 const fs = require("fs");
 
 const [input, arr] = fs

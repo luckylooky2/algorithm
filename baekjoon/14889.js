@@ -1,3 +1,4 @@
+// 스타트와 링크 : 백트래킹, 브루트 포스
 const fs = require("fs");
 const input = fs
   .readFileSync("/dev/stdin")

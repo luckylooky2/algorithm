@@ -1,3 +1,4 @@
+// Moo 게임 : 분할 정복
 const fs = require("fs");
 const n = parseInt(fs.readFileSync("/dev/stdin").toString().trim(), 10);
 

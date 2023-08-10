@@ -1,3 +1,4 @@
+// Z : 분할 정복
 const fs = require("fs");
 const [k, row, column] = fs
   .readFileSync("/dev/stdin")

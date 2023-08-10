@@ -1,3 +1,4 @@
+// Counting Inversions : 분할 정복, 세그먼트 트리
 const [input, arr] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
