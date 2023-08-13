@@ -1,3 +1,4 @@
+// 2xn 타일링 : 동적 계획법
 const n = parseInt(
   require("fs").readFileSync("/dev/stdin").toString().trim(),
   10

@@ -1,3 +1,4 @@
+// 부녀회장이 될테야 : 동적 계획법
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()

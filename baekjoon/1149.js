@@ -1,3 +1,4 @@
+// RGB거리 : 동적 계획법
 const arr = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
