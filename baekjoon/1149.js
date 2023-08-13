@@ -15,14 +15,14 @@ dp[0] = arr[0].map((v) => v);
 
 for (let i = 1; i < n; i++) {
   // red
-  dp[i][GREEN] = Math.min(dp[i][GREEN], dp[i - 1][RED] + arr[i][GREEN]);
-  dp[i][BLUE] = Math.min(dp[i][BLUE], dp[i - 1][RED] + arr[i][BLUE]);
-  // green
   dp[i][RED] = Math.min(dp[i][RED], dp[i - 1][GREEN] + arr[i][RED]);
-  dp[i][BLUE] = Math.min(dp[i][BLUE], dp[i - 1][GREEN] + arr[i][BLUE]);
-  // blue
   dp[i][RED] = Math.min(dp[i][RED], dp[i - 1][BLUE] + arr[i][RED]);
+  // green
+  dp[i][GREEN] = Math.min(dp[i][GREEN], dp[i - 1][RED] + arr[i][GREEN]);
   dp[i][GREEN] = Math.min(dp[i][GREEN], dp[i - 1][BLUE] + arr[i][GREEN]);
+  // blue
+  dp[i][BLUE] = Math.min(dp[i][BLUE], dp[i - 1][RED] + arr[i][BLUE]);
+  dp[i][BLUE] = Math.min(dp[i][BLUE], dp[i - 1][GREEN] + arr[i][BLUE]);
 }
 
 console.log(Math.min(dp[n - 1][0], dp[n - 1][1], dp[n - 1][2]));
