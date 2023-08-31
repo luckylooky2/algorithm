@@ -1,3 +1,4 @@
+// 행렬 제곱 : 분할 정복
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 

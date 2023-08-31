@@ -1,3 +1,4 @@
+// 저울 : 그리디, 정렬
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
