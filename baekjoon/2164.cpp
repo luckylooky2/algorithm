@@ -1,4 +1,4 @@
-// 카드2 : 스택
+// 카드2 : 큐
 
 #include <iostream>
 #include <deque>
