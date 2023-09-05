@@ -1,4 +1,4 @@
-// 두더지 잡기
+// 두더지 잡기 : 정렬, 동적 계획법
 const arr = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
