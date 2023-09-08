@@ -18,9 +18,7 @@ for (let i = 1; i <= n; i++) {
     const prevStep = dp[i - 1][j];
     const currStep =
       j >= value
-        ? dp[i][j - value] === Infinity
-          ? Infinity
-          : dp[i][j - value] + 1
+        ? dp[i][j - value] + (dp[i][j - value] === Infinity ? 0 : 1)
         : Infinity;
     dp[i][j] = Math.min(quotient, prevStep, currStep);
   }
