@@ -1,4 +1,4 @@
-// 가운데를 말해요
+// 가운데를 말해요 : 우선순위 큐, 힙
 const arr = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -24,7 +24,7 @@ class MaxHeap {
     let tmp;
     // 루트에 도달할 때까지
     while (parent !== 0) {
-      if (this.#heap[parent] < v) {
+      if (this.#heap[parent] <= v) {
         // swap
         tmp = this.#heap[parent];
         this.#heap[parent] = this.#heap[curr];
@@ -44,12 +44,12 @@ class MaxHeap {
     let left = curr * 2;
     let right = left + 1;
     let tmp;
+    let isLeftBig = true;
     // 자식 노드가 하나도 없을 때까지
     while (this.#heap[left] !== undefined) {
-      let isLeftBig = true;
       // 오른쪽 자식 노드가 없는 경우
-      if (!this.#heap[right]) {
-        if (this.#heap[curr] > this.#heap[left]) break;
+      if (this.#heap[right] === undefined) {
+        if (this.#heap[curr] > this.#heap[left]) return;
       }
       // 오른쪽 자식 노드가 있는 경우
       else {
@@ -57,7 +57,7 @@ class MaxHeap {
           this.#heap[curr] > this.#heap[left] &&
           this.#heap[curr] > this.#heap[right]
         )
-          break;
+          return;
         if (this.#heap[left] < this.#heap[right]) {
           isLeftBig = false;
         }
@@ -94,7 +94,7 @@ class MinHeap {
     let tmp;
     // 루트에 도달할 때까지
     while (parent !== 0) {
-      if (this.#heap[parent] > v) {
+      if (this.#heap[parent] >= v) {
         // swap
         tmp = this.#heap[parent];
         this.#heap[parent] = this.#heap[curr];
@@ -114,12 +114,12 @@ class MinHeap {
     let left = curr * 2;
     let right = left + 1;
     let tmp;
+    let isLeftSmall = true;
     // 자식 노드가 하나도 없을 때까지
     while (this.#heap[left] !== undefined) {
-      let isLeftSmall = true;
       // 오른쪽 자식 노드가 없는 경우
-      if (!this.#heap[right]) {
-        if (this.#heap[curr] < this.#heap[left]) break;
+      if (this.#heap[right] === undefined) {
+        if (this.#heap[curr] < this.#heap[left]) return;
       }
       // 오른쪽 자식 노드가 있는 경우
       else {
@@ -127,7 +127,7 @@ class MinHeap {
           this.#heap[curr] < this.#heap[left] &&
           this.#heap[curr] < this.#heap[right]
         )
-          break;
+          return;
         if (this.#heap[left] > this.#heap[right]) {
           isLeftSmall = false;
         }
@@ -152,18 +152,44 @@ class MinHeap {
 const minHeap = new MinHeap();
 const maxHeap = new MaxHeap();
 
-arr.map((v, i) => {
-  if (i % 2) minHeap.insert(v);
-  else maxHeap.insert(v);
-  if (minHeap.size && maxHeap.size && maxHeap.max() > minHeap.min()) {
-    const left = maxHeap.max();
-    const right = minHeap.min();
-    maxHeap.delete();
-    minHeap.delete();
-    maxHeap.insert(right);
-    minHeap.insert(left);
-  }
-  answer.push(maxHeap.max());
+// arr.map((v, i) => {
+//   if (i % 2) minHeap.insert(v);
+//   else maxHeap.insert(v);
+//   if (minHeap.size && maxHeap.size && maxHeap.max() > minHeap.min()) {
+//     const left = maxHeap.max();
+//     const right = minHeap.min();
+//     maxHeap.delete();
+//     minHeap.delete();
+//     maxHeap.insert(right);
+//     minHeap.insert(left);
+//   }
+//   maxHeap.print();
+//   minHeap.print();
+//   answer.push(maxHeap.max());
+// });
+
+[3, 1, 5, 2, 4, -1, -9, 0, 7, -11, 5, 2, 4].map((v) => {
+  maxHeap.insert(v);
+  maxHeap.print();
 });
 
+console.log("---------------------------------");
+for (let i = 0; i < 13; i++) {
+  maxHeap.delete();
+  maxHeap.print();
+}
+
+[3, 1, 5, 2, 4, -1, -9, 0, 7, -11, 5, 2, 4].map((v) => {
+  minHeap.insert(v);
+  minHeap.print();
+});
+
+console.log("---------------------------------");
+for (let i = 0; i < 13; i++) {
+  minHeap.delete();
+  minHeap.print();
+}
+
 console.log(answer.join("\n"));
+
+// 중복 요소를 처리하지 않아서 틀림
