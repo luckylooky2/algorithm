@@ -1,4 +1,4 @@
-// 숫자 카드 2 : 이분 탐색
+// 숫자 카드 2 : 이분 탐색, 해시를 사용한 집합과 맵, 정렬
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
