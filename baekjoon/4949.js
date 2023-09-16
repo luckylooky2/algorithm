@@ -13,14 +13,12 @@ strList.map((v) => {
   let i = 0;
   while (i !== v.length) {
     if (v[i] === "(" || v[i] === "[") stack.push(v[i]);
-    else if (v[i] === ")") {
-      if (stack[stack.length - 1] === "(") stack.pop();
-      else {
-        flag = true;
-        break;
-      }
-    } else if (v[i] === "]") {
-      if (stack[stack.length - 1] === "[") stack.pop();
+    else if (v[i] === ")" || v[i] === "]") {
+      if (
+        (v[i] === ")" && stack[stack.length - 1] === "(") ||
+        (v[i] === "]" && stack[stack.length - 1] === "[")
+      )
+        stack.pop();
       else {
         flag = true;
         break;
