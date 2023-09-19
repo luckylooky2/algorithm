@@ -1,4 +1,4 @@
-// 균형잡힌 세상 : 스택
+// 균형잡힌 세상 : 스택, 문자열
 const strList = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
