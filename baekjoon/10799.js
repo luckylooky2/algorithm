@@ -6,7 +6,6 @@ const prths = require("fs")
   .split("");
 const stack = [];
 let num = 0;
-let i = 0;
 
 let answer = 0;
 const LEFT = "(";
@@ -41,4 +40,5 @@ prths.map((v) => {
   }
   stack.push(v);
 });
+
 console.log(answer);
