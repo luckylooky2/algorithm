@@ -1,0 +1,29 @@
+name: Update Stats
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    env:
+      GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+      GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Calculate Stats
+        run: |
+          bash .github/workflows/test.sh
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "${GIT_USER_NAME}"
+          git config --global user.email "${GIT_USER_EMAIL}"
+          git add README.md
+          git commit -m "Update stats in README.md"
+          git push
