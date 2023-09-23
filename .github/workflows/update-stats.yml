@@ -3,7 +3,7 @@ name: Update Stats
 on:
   push:
     branches:
-      - master
+      - test/action
 
 jobs:
   update-stats:
@@ -18,7 +18,7 @@ jobs:
 
       - name: Calculate Stats
         run: |
-          bash .github/workflows/test.sh
+          bash .github/workflows/setup.sh
 
       - name: Commit and Push
         run: |
