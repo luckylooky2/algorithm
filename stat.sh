@@ -7,10 +7,10 @@ cpp_num=$(find . -type f -name '*[0-9].cpp' | wc -l | tr -d ' ')
 c_num=$(find . -type f -name '*[0-9].c' | wc -l | tr -d ' ')
 py_num=$(find . -type f -name '*[0-9].py' | wc -l | tr -d ' ')
 
-count_map[${js_num}]="Javascipt"
-count_map[${cpp_num}]="C++"
-count_map[${c_num}]="C"
-count_map[${py_num}]="Python"
+count_map[${js_num}]="![](https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=JavaScript&logoColor=white)"
+count_map[${cpp_num}]="![](https://img.shields.io/badge/C++-00599C?style=flat&logo=C++&logoColor=white)"
+count_map[${c_num}]="![](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)"
+count_map[${py_num}]="![](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)"
 
 array=(${js_num} ${c_num} ${cpp_num} ${py_num})
 sorted_array=($(for element in "${array[@]}"; do
