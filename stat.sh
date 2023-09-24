@@ -8,7 +8,7 @@ c_num=$(find . -type f -name '*[0-9].c' | wc -l | tr -d ' ')
 py_num=$(find . -type f -name '*[0-9].py' | wc -l | tr -d ' ')
 
 count_map[${js_num}]="![](https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=JavaScript&logoColor=white)"
-count_map[${cpp_num}]="![](https://img.shields.io/badge/C++-00599C?style=flat&logo=C++&logoColor=white)"
+count_map[${cpp_num}]="![](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)"
 count_map[${c_num}]="![](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)"
 count_map[${py_num}]="![](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)"
 
