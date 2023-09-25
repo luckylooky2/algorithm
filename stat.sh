@@ -14,8 +14,8 @@ py_p=$(find ./programmers -type f -name '*.py' | wc -l | tr -d ' ')
 array=($((js_b + js_p)) $((c_b + c_p)) $((cpp_b + cpp_p)) $((py_b + py_p)))
 
 count_map[$((js_b + js_p))]="![](https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=JavaScript&logoColor=white)"
-count_map[$((c_b + c_p))]="![](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)"
-count_map[$((cpp_b + cpp_p))]="![](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)"
+count_map[$((cpp_b + cpp_p))]="![](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)"
+count_map[$((c_b + c_p))]="![](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)"
 count_map[$((py_b + py_p))]="![](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)"
 
 sorted_array=($(for element in "${array[@]}"; do
