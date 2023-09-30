@@ -77,10 +77,13 @@ class Deque {
 
   print = () => {
     let curr = this.head;
+    const lst = [];
     for (let i = 0; i < this.size; i++) {
-      //   console.log(curr.value);
-      answer.push(curr.value);
+      lst.push(curr.value);
       curr = curr.next;
     }
+    console.log("[ " + lst.join(", ") + " ]");
   };
 }
+
+module.exports = Deque;
