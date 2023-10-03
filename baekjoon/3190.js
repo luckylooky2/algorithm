@@ -82,4 +82,4 @@ console.log(second);
 // snake를 순회할 때, 배열처럼 접근하여 로직이 이상해졌음
 // break가 전체 loop break가 아니었음
 // currDir에서 바뀌기 전의 값으로 비교했었어야 하는데(0, 3) => (0, 5)로 비교
-// push_front(), pop_back()만 사용하므로 큐를 거꾸로 사용하면
+// push_front(), pop_back()만 사용하므로 큐를 거꾸로 사용하면 큐만 사용할 수 있음
