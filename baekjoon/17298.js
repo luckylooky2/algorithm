@@ -1,4 +1,4 @@
-// 오큰수
+// 오큰수 : 스택
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -8,7 +8,6 @@ const input = require("fs")
 const [n] = input.shift();
 const arr = input.shift();
 const answer = [];
-
 const stack = [];
 const reversed = arr.reverse();
 reversed.map((v, i) => {
