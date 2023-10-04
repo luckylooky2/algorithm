@@ -51,3 +51,5 @@ class Queue {
 
   front = () => this.head.value;
 }
+
+module.exports = Queue;
