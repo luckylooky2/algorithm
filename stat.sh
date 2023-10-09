@@ -11,10 +11,13 @@ cpp_p=$(find ./programmers -type f -name '*.cpp' | wc -l | tr -d ' ')
 c_p=$(find ./programmers -type f -name '*.c' | wc -l | tr -d ' ')
 py_p=$(find ./programmers -type f -name '*.py' | wc -l | tr -d ' ')
 
+duplicate_b=$(find ./baekjoon -type f -name '*[0-9].*' -exec basename {} \; | sed 's/\..*$//' | sort | uniq -d | wc -l)
+duplicate_p=$(find ./programmers -type f -name '*' -exec basename {} \; | sed 's/\..*$//' | sort | uniq -d | wc -l)
 
 array=($((js_b + js_p)) $((cpp_b + cpp_p)) $((py_b + py_p)) $((c_b + c_p)))
 
 total=0
+duplicate=$((duplicate_b + duplicate_p))
 
 for number in "${array[@]}"; do
   total=$((total + number))
@@ -27,5 +30,5 @@ echo "
 |![](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)|${array[1]}|
 |![](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)|${array[2]}|
 |![](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)|${array[3]}|
-|Total| ${total}|
-"
+|Total| $((total - duplicate))|
+" > README.md
