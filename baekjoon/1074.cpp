@@ -1,3 +1,4 @@
+// Z : 분할 정복
 #include <iostream>
 #include <string>
 #include <sstream>
