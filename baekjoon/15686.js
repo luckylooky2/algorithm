@@ -9,12 +9,6 @@ const [n, m] = arr.shift().map((v) => parseInt(v, 10));
 const house = [];
 const chicken = [];
 const visited = [];
-const dir = [
-  [-1, 0],
-  [0, 1],
-  [1, 0],
-  [0, -1],
-];
 const BLANK = "0",
   HOUSE = "1",
   CHICKEN = "2";
@@ -26,8 +20,6 @@ for (let i = 0; i < n; i++) {
     else if (arr[i][j] === CHICKEN) chicken.push([i, j]);
   }
 }
-
-const chickenCount = chicken.length;
 
 function dfs(depth = 0) {
   if (depth === m) {
@@ -47,7 +39,7 @@ function dfs(depth = 0) {
     return;
   }
 
-  for (let i = 0; i < chickenCount; i++) {
+  for (let i = 0; i < chicken.length; i++) {
     // 조합
     if (visited.includes(i) || visited[visited.length - 1] > i) continue;
     visited.push(i);
