@@ -1,5 +1,3 @@
-const { readSync } = require("fs");
-
 // 하노이의 탑 이동 순서 : 재귀 호출
 const n = parseInt(
   require("fs").readFileSync("/dev/stdin").toString().trim(),

@@ -29,7 +29,3 @@ function mergeSort(left, right, arr) {
 }
 
 module.exports = mergeSort;
-
-// merge sort는 stable sort
-// 같은 우선순위를 가진 원소들의 순서가 그대로 유지되는 정렬 방법
-// 파일을 생성 순, 이름 순으로 2번 정렬할 때, 이미 정렬한 생성 순서를 유지할 수 있음
