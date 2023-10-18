@@ -1,4 +1,4 @@
-// 수 정렬하기 : 퀵 정렬
+// 수 정렬하기 : 정렬
 
 #include <stdio.h>
 #include <stdlib.h>
