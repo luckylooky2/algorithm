@@ -8,10 +8,12 @@ const arr = require("fs")
 
 const dp = new Array(3).fill(null).map(() => new Array(11).fill(1));
 
+// 1과 2로만 구성할 경우
 for (let j = 2; j <= 1000; j++) {
   dp[1][j] = dp[1][j - 1] + dp[1][j - 2];
 }
 
+// 1, 2, 3로 구성할 경우
 for (let j = 2; j <= 1000; j++) {
   dp[2][j] = dp[2][j - 1] + dp[2][j - 2] + (j - 3 >= 0 ? dp[2][j - 3] : 0);
 }
