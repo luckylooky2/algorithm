@@ -1,4 +1,4 @@
-// 리코쳇 로봇 : bfs
+// 리코쳇 로봇 : 너비 우선 탐색
 function solution(board) {
   var answer = -1;
   const q = [];
