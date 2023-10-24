@@ -1,3 +1,4 @@
+// 미로 탈출 : 너비 우선 탐색
 function count(q, map, target) {
   const copy = map.map((v) => v.map((v) => v));
   copy[q[0][0]][q[0][1]] = 0;
