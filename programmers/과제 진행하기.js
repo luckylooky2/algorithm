@@ -74,7 +74,6 @@ function solution(plans) {
         let diff = calculateDiff(stack[stack.length - 1][1], sorted[i][1]);
         // 시간 안에 가장 위 과제를 끝낼 수 있는 경우
         if (diff >= stack[stack.length - 1][2]) {
-          diff = diff - stack[stack.length - 1][2];
           answer.push(stack[stack.length - 1][0]);
           stack.pop();
         }
