@@ -18,33 +18,32 @@ function solution(board) {
   }
   // bfs
   while (q.length !== 0) {
-    const top = q[0];
+    const [topCoord, cnt] = q[0];
     q.shift(); // 시간 복잡도 고려
     // G라면 break;
-    if (board[top[0][0]][top[0][1]] === "G") {
-      answer = top[1];
+    if (board[topCoord[0]][topCoord[1]] === "G") {
+      answer = cnt;
       break;
     }
-    board[top[0][0]][top[0][1]] = "V";
+    board[topCoord[0]][topCoord[1]] = "V";
     for (let i = 0; i < dir.length; i++) {
       // R위치 최신화
-      const next = [top[0][0], top[0][1]];
+      const next = [topCoord[0], topCoord[1]];
+      const [dx, dy] = dir[i];
       while (
         !(
-          next[0] + dir[i][0] < 0 ||
-          next[0] + dir[i][0] >= n ||
-          next[1] + dir[i][1] < 0 ||
-          next[1] + dir[i][1] >= m ||
-          board[next[0] + dir[i][0]][next[1] + dir[i][1]] === "D"
+          next[0] + dx < 0 ||
+          next[0] + dx >= n ||
+          next[1] + dy < 0 ||
+          next[1] + dy >= m ||
+          board[next[0] + dx][next[1] + dy] === "D"
         )
       ) {
-        next[0] = next[0] + dir[i][0];
-        next[1] = next[1] + dir[i][1];
+        next[0] = next[0] + dx;
+        next[1] = next[1] + dy;
       }
-      if (next[0] < 0 || next[0] >= n || next[1] < 0 || next[1] >= m) continue;
-      if (board[next[0]][next[1]] === "D" || board[next[0]][next[1]] === "V")
-        continue;
-      q.push([next, top[1] + 1]);
+      if (board[next[0]][next[1]] === "V") continue;
+      q.push([next, cnt + 1]);
     }
   }
   return answer;
