@@ -1,4 +1,4 @@
-// 소수 찾기
+// 소수 찾기 : 수학
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -11,13 +11,13 @@ let answer = 0;
 
 arr.map((v) => {
   let flag = false;
-  for (let i = 2; i * i < v; i++) {
+  for (let i = 2; i * i <= v; i++) {
     if (v % i === 0) {
       flag = true;
       break;
     }
   }
-  if (flag) answer++;
+  if (v !== 1 && !flag) answer++;
 });
 
 console.log(answer);
