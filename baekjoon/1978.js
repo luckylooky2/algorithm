@@ -1,4 +1,4 @@
-// 소수 찾기 : 수학
+// 소수 찾기 : 수학, 소수
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
