@@ -13,11 +13,12 @@ for ([m, n, x, y] of arr) {
   let yp = x;
   const cache = {};
   while (true) {
+    // yp + m이 아니라 xp
+    // 복잡하게 생각할 것이 아니라, 수에서 n으로 나눴을 때 나머지를 구하면 됨
+    yp = xp % n === 0 ? n : xp % n;
     if (yp === y) break;
-    yp = (yp + m) % n === 0 ? n : (yp + m) % n;
     xp += m;
     if (cache[yp]) {
-      console.log(cache);
       xp = -1;
       break;
     }
