@@ -1,4 +1,4 @@
-// 이항 계수 2 : 동적 계획법
+// 이항 계수 2 : 수학, 동적 계획법
 const [n, k] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
