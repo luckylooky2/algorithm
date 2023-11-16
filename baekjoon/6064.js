@@ -1,4 +1,4 @@
-// 카잉 달력
+// 카잉 달력 : 수학, 브루트 포스
 const arr = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
