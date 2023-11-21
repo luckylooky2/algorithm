@@ -1,4 +1,4 @@
-// 수 고르기
+// 수 고르기 : 이분 탐색
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -31,3 +31,7 @@ for (value of arr) {
 }
 
 console.log(answer);
+
+// 하나의 현재 원소 elem을 기준으로 elem + m 보다 가장 작은 인덱스를 구함
+// 있으면 해당 인덱스를 반환, 없으면 가장 마지막 인덱스를 반환
+// 있다면 해당 인덱스의 원소 - 현재 원소를 뺀 값(함수 안에서는 현재 원소를 포함한 계산이었으므로)을 업데이트
