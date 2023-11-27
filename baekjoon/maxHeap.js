@@ -63,12 +63,4 @@ class MaxHeap {
   };
 }
 
-const heap = new MaxHeap();
-[10, 20, 5, 12, 40, 80].map((v) => heap.insert(v));
-heap.print();
-console.log(heap.size);
-heap.delete();
-heap.delete();
-heap.delete();
-heap.print();
-console.log(heap.size);
+module.exports = { MaxHeap };
