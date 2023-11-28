@@ -1,4 +1,4 @@
-// 보석 도둑
+// 보석 도둑 : 우선순위 큐, 그리디, 정렬
 let jewelrys = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -48,10 +48,7 @@ class Heap {
       // 1. 반드시 leaf 노드까지 탐색 및 교환을 수행해야 함 => break 삭제
       // 2. 값이 0일수도 있으므로, undefined가 아닌 경우로 특정해야 함 => !== undefined
       // 3. 왼쪽 자식 노드 없이, 오른쪽 자식 노드가 있는 것이 불가능하기 때문에 조건이 간단해짐
-      if (
-        this.arr[leftChildIndex] !== undefined &&
-        this.arr[rightChildIndex] !== undefined
-      ) {
+      if (this.arr[rightChildIndex] !== undefined) {
         const isLeftBig = this.arr[leftChildIndex] > this.arr[rightChildIndex];
         if (
           this.arr[currIndex] <
