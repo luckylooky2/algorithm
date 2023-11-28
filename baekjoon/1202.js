@@ -9,66 +9,103 @@ let jewelrys = require("fs")
 // 우선순위 큐 구현
 const ROOT = 1;
 
-class MaxHeap {
-  #heap;
+class Heap {
   constructor() {
-    this.#heap = [null];
+    this.arr = [null];
     this.size = 0;
   }
 
-  insert = (v) => {
-    this.#heap.push(v);
+  push = (number) => {
+    this.arr.push(number);
     this.size++;
-    let parent = Math.floor(this.size / 2);
-    let curr = this.size;
-    let tmp;
-    // 루트에 도달할 때까지
-    while (parent !== 0) {
-      if (this.#heap[parent] <= v) {
-        // swap
-        tmp = this.#heap[parent];
-        this.#heap[parent] = this.#heap[curr];
-        this.#heap[curr] = tmp;
+    // 1이 될때까지
+    let currIndex = this.size;
+    while (currIndex !== 1) {
+      let tmp;
+      const parentIndex = Math.floor(currIndex / 2);
+      // max heap
+      if (this.arr[parentIndex] < this.arr[currIndex]) {
+        tmp = this.arr[parentIndex];
+        this.arr[parentIndex] = this.arr[currIndex];
+        this.arr[currIndex] = tmp;
       }
-      curr = parent;
-      parent = Math.floor(parent / 2);
+      currIndex = parentIndex;
     }
   };
 
-  delete = () => {
-    if (this.size === 0) return;
-    if (this.size === 1) this.#heap.pop();
-    else this.#heap[ROOT] = this.#heap.pop();
+  pop = () => {
+    if (!this.size) return null;
+    let ret = this.arr[1];
+    this.arr[1] = this.arr[this.size];
+    this.arr.pop();
     this.size--;
-    let curr = ROOT;
-    let left = curr * 2;
-    let right = left + 1;
     let tmp;
-    let isLeftBig = true;
-    // 자식 노드가 하나도 없을 때까지
-    while (this.#heap[left] !== undefined) {
-      // 오른쪽 자식 노드가 있는 경우
-      if (this.#heap[right] !== undefined) {
-        // 여기서 else 문을 주지 않아서 모든 경우의 수를 처리할 수 없었음
-        if (this.#heap[left] > this.#heap[right]) isLeftBig = true;
-        else isLeftBig = false;
+    let currIndex = 1;
+    let leftChildIndex = currIndex * 2;
+    let rightChildIndex = leftChildIndex + 1;
+    // rebalance
+    while (true) {
+      // 1. 반드시 leaf 노드까지 탐색 및 교환을 수행해야 함 => break 삭제
+      // 2. 값이 0일수도 있으므로, undefined가 아닌 경우로 특정해야 함 => !== undefined
+      // 3. 왼쪽 자식 노드 없이, 오른쪽 자식 노드가 있는 것이 불가능하기 때문에 조건이 간단해짐
+      if (
+        this.arr[leftChildIndex] !== undefined &&
+        this.arr[rightChildIndex] !== undefined
+      ) {
+        const isLeftBig = this.arr[leftChildIndex] > this.arr[rightChildIndex];
+        if (
+          this.arr[currIndex] <
+          this.arr[isLeftBig ? leftChildIndex : rightChildIndex]
+        ) {
+          if (isLeftBig) {
+            tmp = this.arr[leftChildIndex];
+            this.arr[leftChildIndex] = this.arr[currIndex];
+            this.arr[currIndex] = tmp;
+          } else {
+            tmp = this.arr[rightChildIndex];
+            this.arr[rightChildIndex] = this.arr[currIndex];
+            this.arr[currIndex] = tmp;
+          }
+        }
+        currIndex = isLeftBig ? leftChildIndex : rightChildIndex;
+        leftChildIndex = currIndex * 2;
+        rightChildIndex = leftChildIndex + 1;
+      } else if (
+        this.arr[leftChildIndex] !== undefined ||
+        this.arr[rightChildIndex] !== undefined
+      ) {
+        if (this.arr[leftChildIndex] !== undefined) {
+          if (this.arr[leftChildIndex] > this.arr[currIndex]) {
+            tmp = this.arr[leftChildIndex];
+            this.arr[leftChildIndex] = this.arr[currIndex];
+            this.arr[currIndex] = tmp;
+          }
+          currIndex = leftChildIndex;
+          leftChildIndex = currIndex * 2;
+          rightChildIndex = leftChildIndex + 1;
+        } else {
+          if (this.arr[rightChildIndex] > this.arr[currIndex]) {
+            tmp = this.arr[rightChildIndex];
+            this.arr[rightChildIndex] = this.arr[currIndex];
+            this.arr[currIndex] = tmp;
+          }
+          currIndex = rightChildIndex;
+          leftChildIndex = currIndex * 2;
+          rightChildIndex = leftChildIndex + 1;
+        }
+      } else {
+        break;
       }
-      if (this.#heap[curr] < this.#heap[isLeftBig ? left : right]) {
-        // swap
-        tmp = this.#heap[isLeftBig ? left : right];
-        this.#heap[isLeftBig ? left : right] = this.#heap[curr];
-        this.#heap[curr] = tmp;
-      }
-      curr = isLeftBig ? left : right;
-      left = curr * 2;
-      right = left + 1;
     }
+    return ret;
   };
 
-  max = () => this.#heap[this.size === 0 ? 0 : 1];
+  // 여기가 문제였음
+  // this.arr[1] 을 리턴해서 문제 발생
+  top = () => this.arr[this.size === 0 ? 0 : 1];
 
   print = () => {
-    console.log(this.#heap);
+    console.log(this.arr);
   };
 }
 
@@ -77,7 +114,7 @@ const [n, k] = jewelrys.shift();
 let bags = [];
 let i = 0;
 let answer = 0;
-const heap = new MaxHeap();
+const heap = new Heap();
 for (let i = 0; i < k; i++) {
   bags.push(jewelrys.pop()[0]);
 }
@@ -93,13 +130,12 @@ for (let value of bags) {
   // 가방 무게까지 heap에 push
   while (i <= value) {
     if (cache[i]) {
-      for (let j = 0; j < cache[i].length; j++) heap.insert(cache[i][j]);
+      for (let j = 0; j < cache[i].length; j++) heap.push(cache[i][j]);
     }
     i++;
   }
   // 그 중에서 최대값을 pop
-  answer += heap.max();
-  heap.delete();
+  answer += heap.pop();
 }
 
 console.log(answer);
