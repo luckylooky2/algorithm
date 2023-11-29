@@ -99,6 +99,7 @@ class Heap {
 
   // 여기가 문제였음
   // this.arr[1] 을 리턴해서 문제 발생
+  // 비어있는 경우에 top을 호출하지 않을 것이라고 생각 => 런타임 에러가 발생하지는 않는데 undefined가 반환되는 문제
   top = () => this.arr[this.size === 0 ? 0 : 1];
 
   print = () => {
