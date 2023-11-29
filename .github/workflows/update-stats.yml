@@ -22,8 +22,12 @@ jobs:
 
       - name: Commit and Push
         run: |
-          git config --global user.name "${GIT_USER_NAME}"
-          git config --global user.email "${GIT_USER_EMAIL}"
-          git add README.md
-          git commit -m "Update stats in README.md"
-          git push
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config --global user.name "${GIT_USER_NAME}"
+            git config --global user.email "${GIT_USER_EMAIL}"
+            git add README.md
+            git commit -m "Update stats in README.md"
+            git push
+          else
+            echo "No changes to commit."
+          fi
