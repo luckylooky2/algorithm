@@ -1,4 +1,4 @@
-// DFS와 BFS
+// DFS와 BFS : 그래프, 너비 우선 탐색, 깊이 우선 탐색
 const arr = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
