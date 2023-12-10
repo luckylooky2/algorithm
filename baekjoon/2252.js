@@ -17,7 +17,7 @@ for (let [first, second] of arr) {
 function topologicalSort(graph) {
   const indegrees = new Array(n + 1).fill(0);
   const q = [];
-  const answer = [];
+  const sorted = [];
 
   for (let i = 1; i <= n; i++) {
     if (graph[i]) {
@@ -26,12 +26,10 @@ function topologicalSort(graph) {
       }
     }
   }
-
   for (let i = 1; i <= n; i++) if (indegrees[i] === 0) q.push(i);
-
   while (q.length !== 0) {
     const top = q.shift();
-    answer.push(top);
+    sorted.push(top);
     if (!graph[top]) continue;
     for (let node of graph[top]) {
       indegrees[node]--;
@@ -40,8 +38,8 @@ function topologicalSort(graph) {
       }
     }
   }
-
-  console.log(answer.join(" "));
+  return sorted;
 }
 
-topologicalSort(graph);
+const sorted = topologicalSort(graph);
+if (sorted.length === n) console.log(sorted.join(" "));
