@@ -33,6 +33,8 @@ for (let i = 0; i < n; i++) {
     if (cache[node] === undefined) cache[node] = max + time[node - 1];
     return max + time[node - 1];
   }
-
   console.log(dfs(w));
 }
+
+// 정해져있는 목적지부터 거꾸로 시작 => 첫 시작이 어디인지 알 수 없기 때문에
+// 단계별로 생각할 필요가 없음
