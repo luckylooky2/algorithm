@@ -7,7 +7,7 @@ class MinHeap {
     this.size = 0;
   }
 
-  insert = (v) => {
+  push = (v) => {
     this.#heap.push(v);
     this.size++;
     let parent = Math.floor(this.size / 2);
@@ -26,7 +26,7 @@ class MinHeap {
     }
   };
 
-  delete = () => {
+  pop = () => {
     if (this.size === 0) return;
     if (this.size === 1) this.#heap.pop();
     else this.#heap[ROOT] = this.#heap.pop();
@@ -56,7 +56,7 @@ class MinHeap {
     }
   };
 
-  min = () => this.#heap[this.size === 0 ? 0 : 1];
+  top = () => this.#heap[this.size === 0 ? 0 : 1];
 
   print = () => {
     console.log(this.#heap);
