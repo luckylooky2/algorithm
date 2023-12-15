@@ -1,5 +1,3 @@
-const ROOT = 1;
-
 class MinHeap {
   #heap;
   constructor() {
@@ -12,15 +10,13 @@ class MinHeap {
     this.size++;
     let parent = Math.floor(this.size / 2);
     let curr = this.size;
-    let tmp;
     // 루트에 도달할 때까지
     while (parent !== 0) {
-      if (this.#heap[parent] >= v) {
-        // swap
-        tmp = this.#heap[parent];
-        this.#heap[parent] = this.#heap[curr];
-        this.#heap[curr] = tmp;
-      }
+      if (this.#heap[parent] >= v)
+        [this.#heap[parent], this.#heap[curr]] = [
+          this.#heap[curr],
+          this.#heap[parent],
+        ];
       curr = parent;
       parent = Math.floor(parent / 2);
     }
@@ -29,12 +25,11 @@ class MinHeap {
   pop = () => {
     if (this.size === 0) return;
     if (this.size === 1) this.#heap.pop();
-    else this.#heap[ROOT] = this.#heap.pop();
+    else this.#heap[1] = this.#heap.pop();
     this.size--;
-    let curr = ROOT;
+    let curr = 1;
     let left = curr * 2;
     let right = left + 1;
-    let tmp;
     let isLeftSmall = true;
     // 자식 노드가 하나도 없을 때까지
     while (this.#heap[left] !== undefined) {
@@ -44,12 +39,14 @@ class MinHeap {
         if (this.#heap[left] < this.#heap[right]) isLeftSmall = true;
         else isLeftSmall = false;
       }
-      if (this.#heap[curr] > this.#heap[isLeftSmall ? left : right]) {
-        // swap
-        tmp = this.#heap[isLeftSmall ? left : right];
-        this.#heap[isLeftSmall ? left : right] = this.#heap[curr];
-        this.#heap[curr] = tmp;
-      }
+      // 이전에 isLeftSmall = false일 수도 있으므로, 오른쪽 자식이 없다면 isLeftSmall을 반드시 설정해주어야 함
+      else isLeftSmall = true;
+
+      if (this.#heap[curr] > this.#heap[isLeftSmall ? left : right])
+        [this.#heap[curr], this.#heap[isLeftSmall ? left : right]] = [
+          this.#heap[isLeftSmall ? left : right],
+          this.#heap[curr],
+        ];
       curr = isLeftSmall ? left : right;
       left = curr * 2;
       right = left + 1;
@@ -57,6 +54,10 @@ class MinHeap {
   };
 
   top = () => this.#heap[this.size === 0 ? 0 : 1];
+
+  isEmpty = () => {
+    return this.#heap.length === 1;
+  };
 
   print = () => {
     console.log(this.#heap);
