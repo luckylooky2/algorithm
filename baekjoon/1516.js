@@ -1,4 +1,4 @@
-// 게임 개발 : 깊이 우선 탐색, 동적 계획법, 그래프
+// 게임 개발 : 깊이 우선 탐색, 동적 계획법, 그래프, 위상 정렬
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
