@@ -117,9 +117,8 @@ class MinHeap {
 
 const heap = new MinHeap();
 const graph = {};
-let answer = 0;
-let cnt = 0;
-let visited = new Array(n + 1).fill(false);
+const answer = [];
+const visited = new Array(n + 1).fill(false);
 
 for (let [start, end, weight] of input) {
   if (!graph[start]) graph[start] = [[end, weight]];
@@ -133,17 +132,20 @@ for (let node of graph[1]) {
   heap.push([node[1], node[0]]);
 }
 
-while (cnt < n - 1) {
+while (true) {
   const [weight, next] = heap.top();
   heap.pop();
   if (visited[next]) continue;
-  visited[next] = true;
-  cnt++;
-  answer += weight;
+  answer.push(weight);
   for (let node of graph[next]) {
     if (visited[node[0]]) continue; // 실수
     heap.push([node[1], node[0]]);
   }
+  visited[next] = true;
+  const cnt = visited
+    .map((v, i) => (v === true ? 1 : 0))
+    .reduce((a, b) => a + b);
+  if (cnt === n) break;
 }
 
-console.log(answer);
+console.log(answer.reduce((a, b) => a + b));
