@@ -6,23 +6,21 @@ const input = require("fs")
   .split("\n")
   .map((v) => v.split(" ").map((v) => parseInt(v, 10)));
 const [n] = input.shift();
-const cost = new Array(n + 1).fill(0);
 const edges = [];
+const parent = new Array(n + 2).fill(0).map((_v, i) => i);
+const answer = [];
 
 for (let i = 0; i < n; i++) {
-  cost[i + 1] = input.shift()[0];
+  const [cost] = input.shift();
+  edges.push([i + 1, n + 1, cost]);
 }
 
 for (let i = 0; i < n; i++) {
   const costs = input[i];
-  for (let j = i; j < n; j++) {
-    if (j === i) edges.push([i + 1, i + 1, cost[i + 1]]);
-    else edges.push([i + 1, j + 1, costs[j]]);
+  for (let j = i + 1; j < n; j++) {
+    edges.push([i + 1, j + 1, costs[j]]);
   }
 }
-
-const parent = new Array(n + 1).fill(0).map((_v, i) => i);
-const answer = [];
 
 function getParent(x) {
   if (parent[x] === x) return x;
@@ -45,42 +43,23 @@ function find(a, b) {
 }
 
 const sorted = edges.sort((a, b) => a[2] - b[2]);
-const visited = new Array(n + 1).fill(false);
 
 while (sorted.length) {
-  const cnt = visited.map((v) => (v === true ? 1 : 0)).reduce((a, b) => a + b);
-  if (cnt === n) break;
-
   const [first, second, cost] = sorted.shift();
-  if (first === second) {
-    visited[first] = true;
-    continue;
-  }
-
   if (!find(first, second)) {
     union(first, second);
-    visited[first] = true;
-    visited[second] = true;
     answer.push(cost);
   }
 }
 
-const result = {};
-
-for (let i = 1; i <= n; i++) {
-  if (!result[parent[i]]) result[parent[i]] = [i];
-  else result[parent[i]].push(i);
-}
-
-Object.entries(result).map(([_key, value]) => {
-  let min = Infinity;
-  for (let node of value) {
-    min = Math.min(min, cost[node]);
-  }
-  answer.push(min);
-});
-
 console.log(answer.reduce((a, b) => a + b));
 
-// 다 이어지더라도 최소한 노드가 1개는 있어야 함
+// 접근 방법
+// 1. 다 이어지더라도 최소한 노드가 1개는 있어야 함
 // first === second가 유효하면, 제외해야 함
+
+// 2. 직접 우물을 파는 비용을 [1, 1, 5]로 edges에 포함시키는 방법
+// 마지막 parent 배열에서 노드 묶음마다 가장 값이 작은 노드를 결과에 추가
+// 노드 묶음을 나누어도 다른 노드 묶음에 연결하는 것이 값이 더 작을 수 있으므로 사용하지 못함
+
+// 3. 가상의 n + 1번 노드를 만들어 직접 우물을 파는 비용을 n + 1번 노드와 연결하는 비용으로 설정
