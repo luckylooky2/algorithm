@@ -8,14 +8,16 @@ const input = require("fs")
 const [n] = input.shift();
 const [m] = input.shift();
 const map = new Array(n).fill(null).map(() => new Array(n).fill(Infinity));
-const trace = new Array(n).fill(null).map(() => new Array(n).fill(Infinity));
+const trace = new Array(n).fill(null).map(() => new Array(n).fill(null));
 const answer = [];
 
 function dfs(start, end, path, trace) {
-  if (start === Infinity || end === Infinity) return;
+  if (start === null || end === null) return;
 
   dfs(start, trace[start][end], path, trace);
-  if (trace[start][end] !== Infinity) path.push(trace[start][end] + 1);
+  if (trace[start][end] !== null) {
+    path.push(trace[start][end] + 1);
+  }
   dfs(trace[start][end], end, path, trace);
 }
 
@@ -52,7 +54,7 @@ for (let i = 0; i < n; i++) {
 for (let i = 0; i < n; i++) {
   for (let j = 0; j < n; j++) {
     if (map[i][j] === 0) answer.push([0]);
-    else if (trace[i][j] === Infinity) answer.push([2, i + 1, j + 1]);
+    else if (trace[i][j] === null) answer.push([2, i + 1, j + 1]);
     else {
       const path = [i + 1];
       dfs(i, j, path, trace);
