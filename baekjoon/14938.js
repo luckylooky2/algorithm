@@ -34,7 +34,7 @@ for (let i = 0; i < n; i++) {
   }
 }
 
-const canVisit = new Array(n).fill(null).map(() => new Array(n).fill(0));
+const canVisit = new Array(n).fill(null).map(() => new Array(n).fill(false));
 let answer = 0;
 
 function dfs(start, end, visited, result) {
@@ -48,14 +48,14 @@ function dfs(start, end, visited, result) {
 // 시작과 끝 지점 사이의 방문 노드를 추적하며 방문 가능하다면 1로 표시
 for (let i = 0; i < n; i++) {
   for (let j = 0; j < n; j++) {
-    if (i === j) canVisit[i][i] = 1;
+    if (i === j) canVisit[i][i] = true;
     else if (map[i][j] <= m) {
       const resArr = [i];
       dfs(i, j, visited, resArr);
       resArr.push(j);
       for (let node of resArr) {
         if (canVisit[i][node]) continue;
-        canVisit[i][node] = 1;
+        canVisit[i][node] = true;
       }
     }
   }
@@ -63,9 +63,16 @@ for (let i = 0; i < n; i++) {
 
 canVisit.forEach((v) => {
   const total = v
-    .map((v, i) => (v === 1 ? items[i] : 0))
+    .map((v, i) => (v === true ? items[i] : 0))
     .reduce((a, b) => a + b);
   answer = Math.max(total, answer);
 });
 
 console.log(answer);
+
+// 시도 1
+// 방문 노드를 추적할 때, 방문한 모든 노드를 매번 배열에 더해서 방문 노드 간의 중복이 발생
+// 방문 가능한 노드는 한 번만 더해야 함
+
+// 시도 2
+// 방문한 경우 true로 체크 => 마지막에 한 번만 더함
