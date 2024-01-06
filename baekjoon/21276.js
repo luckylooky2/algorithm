@@ -5,7 +5,6 @@ const input = require("fs")
   .trim()
   .split("\n")
   .map((v) => v.split(" "));
-5;
 const residentCnt = Number(input[0][0]);
 const residentArr = input[1].sort();
 const residentMap = {};
@@ -61,7 +60,8 @@ while (q.length !== 0) {
 }
 
 console.log(family.length);
-console.log(family.join(" "));
+// 정렬 필요
+console.log(family.sort().join(" "));
 
 // 메모리 초과 : others 삭제
 // 시간 초과 : O(n^4)
@@ -73,6 +73,7 @@ for (let currPerson of residentArr) {
     // O(n)
     Object.entries(reverseEdgeGraph[currPerson]).map((v) => {
       let flag = false;
+      // O(n)
       for (let person of graph[v[0]]) {
         if (reverseEdgeGraph[currPerson][person]) {
           flag = true;
