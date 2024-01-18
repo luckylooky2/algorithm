@@ -26,15 +26,18 @@ while (q.length !== 0) {
   }
 
   const mod = prev % 2;
-  if (mod === 0) {
+  if (mod === 0 && prev > n) {
     const quotinent = prev / 2;
     map[quotinent] = count;
     q.push([quotinent, count]);
   }
   for (let i = 0; i < dir.length; i++) {
     const next = prev + dir[i];
-    if (next < 0 || next > 200000 || map[next] > 0) continue;
-    if (mod === 0 && n * 2 < next) continue;
+    if (next < 0 || next > 100000 || map[next] > 0) continue;
+    // k보다 크면 왜 안 되는가?
+    // if (next > k) continue;
+    // 없어도 통과하긴 함
+    // if (mod === 0 && n * 2 < next) continue;
     map[next] = count + 1;
     q.push([next, count + 1]);
   }
