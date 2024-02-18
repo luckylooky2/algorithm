@@ -1,4 +1,4 @@
-// 비숍
+// 비숍 : 백트래킹
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -7,8 +7,9 @@ const input = require("fs")
   .map((v) => v.split(" ").map((v) => Number(v)));
 const [n] = input.shift();
 const map = input;
-const visited = new Array(n * n).fill(false);
+let res = 0;
 let answer = 0;
+let visited;
 const dir = [
   [-1, -1],
   [-1, 1],
@@ -16,13 +17,11 @@ const dir = [
   [1, -1],
 ];
 const isImpossible = (pos) => {
-  pos--;
   const row = Math.floor(pos / n);
   const col = pos % n;
   return map[row][col] === 0;
 };
 const isUnavailable = (pos) => {
-  pos--;
   const row = Math.floor(pos / n);
   const col = pos % n;
   let flag = false;
@@ -46,26 +45,38 @@ const isUnavailable = (pos) => {
   return false;
 };
 
-(function backtrack(min, depth) {
+const backtrack = function (min, prev, depth, flag) {
   // check
-  if (depth > 0 && (isImpossible(min) || isUnavailable(min))) {
+  if (depth > 0 && (isImpossible(prev) || isUnavailable(prev))) {
     return;
   }
 
   // 비숍 개수 최신화
-  answer = Math.max(answer, depth);
+  res = Math.max(res, depth);
 
-  if (depth > 2 * (n - 1)) {
-    console.log(123);
-    return;
+  // n이 짝수인지 홀수인지, 시작이 흑인지 백인지에 따라 확인해야 할 좌표가 달라짐
+  for (let i = min; i < n * n; i += 2) {
+    let adjust = 0;
+    if (n % 2 === 0 && i >= n) {
+      const row = Math.floor(i / n);
+      if (row % 2) {
+        adjust = flag === 0 ? 1 : -1;
+      }
+    }
+    visited[i + adjust] = true;
+    // 조정된 i를 넘기는 것이 아니라, 넘겨서 i를 조정
+    // 단, prev는 이전 값을 넘겨야 하기 때문에 조정된 i로 넘김
+    backtrack(i + 2, i + adjust, depth + 1, flag);
+    visited[i + adjust] = false;
   }
+};
 
-  for (let i = min; i < n * n; i++) {
-    visited[i] = true;
-    backtrack(i + 1, depth + 1);
-    visited[i] = false;
-  }
-})(0, 0);
+for (let i = 0; i < 2; i++) {
+  visited = new Array(n * n).fill(false);
+  backtrack(i, 0, 0, i);
+  answer += res;
+  res = 0;
+}
 
 console.log(answer);
 
@@ -74,3 +85,9 @@ console.log(answer);
 
 // 2. visited에 true로 표시(제거)할 때, 맵을 업데이트(복원)하는 방법
 // 결과적으로 큰 차이 없음
+
+// 3. 체스판의 흑/백을 각각 나눠서 생각
+// 0 2 5 7 8 10
+// 1 3 4 6 9 11
+// 2^100 -> 2 * 2^50 시간 복잡도로 줄일 수 있음
+// 두 경우는 상호배타적이기 때문에, 나누어 결과 값을 더하면 됨
