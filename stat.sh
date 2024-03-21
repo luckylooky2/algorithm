@@ -25,7 +25,7 @@ for number in "${arrayByLanguage[@]}"; do
 done
 
 echo "
-| Language  | # of solved problems |
+| <div style="width:290px">Language</div>  | # of solved problems |
 |:---|---:|
 |![](https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=JavaScript&logoColor=white)|${arrayByLanguage[0]}|
 |![](https://img.shields.io/badge/C++-00599C?style=flat&logo=cplusplus&logoColor=white)|${arrayByLanguage[1]}|
@@ -33,7 +33,7 @@ echo "
 |![](https://img.shields.io/badge/C-A8B9CC?style=flat&logo=c&logoColor=white)|${arrayByLanguage[3]}|
 |Total| $((total - duplicate))|
 
-| Platform  | # of solved problems |
+| <div style="width:290px">Platform</div>  | # of solved problems |
 |:---|---:|
 |![baekjoon]("https://github.com/luckylooky2/algorithm/assets/85822311/e3d22395-a1c3-4006-a99c-b21971b12460")|${arrayByPlatform[0]}|
 |![programmers]("https://github.com/luckylooky2/algorithm/assets/85822311/8756ee3f-d246-448f-a379-3d6462503a8e")|${arrayByPlatform[1]}|
