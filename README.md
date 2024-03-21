@@ -9,7 +9,7 @@
 
 | Platform  | Number of solved problems |
 |:---|---:|
-|![baekjoon](https://github.com/luckylooky2/algorithm/assets/85822311/4d8a8f6e-4414-472b-8f7c-d3020fc322df)|189|
-|![programmers](https://github.com/luckylooky2/algorithm/assets/85822311/9956c5c1-e76d-4fc1-aa9e-3177b9451db0)|19|
+|![baekjoon](https://github.com/luckylooky2/algorithm/assets/85822311/e3d22395-a1c3-4006-a99c-b21971b12460)|189|
+|![programmers](https://github.com/luckylooky2/algorithm/assets/85822311/8756ee3f-d246-448f-a379-3d6462503a8e)|19|
 |Total| 208|
 
