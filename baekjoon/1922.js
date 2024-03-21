@@ -34,3 +34,5 @@ for (let [start, end, cost] of costs) {
 }
 
 console.log(answer);
+
+// 23'39" / 60'00"
