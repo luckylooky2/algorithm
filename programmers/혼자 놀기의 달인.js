@@ -24,4 +24,5 @@ function solution(cards) {
   return first * second;
 }
 
+// 25'02" / 60'00"
 // 중복되는 원소가 존재하지 않기 때문에 반드시 사이클이 존재 => 최소 스패닝 트리(union find)를 사용하지 않아도 됨
