@@ -1,0 +1,96 @@
+// n + 1 카드 게임
+function calc(arr, isValid, cardIndex, addArr, lastIdx) {
+  let res = 0;
+  let i = 0;
+  const ret = [];
+  const copy = isValid.slice();
+  const n = copy.length;
+  const candidates = [];
+  const copyArr = arr.concat(addArr);
+
+  for (const elem of addArr) {
+    copy[elem] = true;
+  }
+  // console.log(copyArr, copy)
+  for (const elem of copyArr) {
+    if (!copy[elem]) {
+      continue;
+    }
+    if (copy[n - elem]) {
+      res++;
+      copy[elem] = false;
+      copy[n - elem] = false;
+      if (addArr.includes(elem)) {
+        candidates.push(elem);
+      }
+      if (addArr.includes(n - elem)) {
+        candidates.push(n - elem);
+      }
+    } else {
+      if (addArr.includes(elem)) {
+        candidates.push(elem);
+      }
+    }
+  }
+  // console.log(candidates)
+  for (const elem of candidates) {
+    const [idx1, idx2] = [lastIdx, cardIndex[n - elem]];
+    if ((idx2 - idx1) / 2 <= res) {
+      ret.push(elem);
+    }
+  }
+  return ret;
+}
+
+function solution(coin, cards) {
+  var answer = 0;
+  const n = cards.length;
+  const target = n + 1;
+  let i = n / 3;
+  let myCard = cards.slice(0, i);
+  const isValid = new Array(n + 1).fill(false);
+  const cardIndex = new Array(n + 1).fill(0);
+  cards.forEach((card, index) => {
+    cardIndex[card] = index;
+  });
+  myCard.forEach((card) => {
+    isValid[card] = true;
+  });
+  while (true) {
+    answer++;
+    if (i === cards.length) {
+      break;
+    }
+    // 추가
+    const [first, second] = [cards[i++], cards[i++]];
+    let ret = calc(myCard, isValid, cardIndex, [first, second], i - 1);
+    ret = ret.slice(0, Math.min(coin, ret.length));
+    coin -= ret.length;
+    for (const elem of ret) {
+      isValid[elem] = true;
+    }
+    myCard = myCard.concat(ret);
+    // console.log(myCard, isValid)
+    // 삭제
+    const copy = [];
+    let flag = false;
+    for (const elem of myCard) {
+      if (!isValid[elem]) {
+        continue;
+      }
+      if (!flag && isValid[target - elem]) {
+        isValid[elem] = false;
+        isValid[target - elem] = false;
+        flag = true;
+      } else {
+        copy.push(elem);
+      }
+    }
+    if (i !== cards.length && myCard.length === copy.length) {
+      break;
+    }
+    myCard = copy;
+    // console.log(myCard, isValid)
+  }
+  return answer;
+}
