@@ -7,14 +7,16 @@ const input = require("fs")
   .map((v) => v.split(" ").map((v) => Number(v)));
 const [n] = input.shift();
 const map = input;
-const arr = new Array(n + 1).fill(null).map((_v, i) => i);
+const arr = new Array(n).fill(null).map((_v, i) => i);
 let answer = 0;
 
 function getParent(x) {
   if (arr[x] === x) {
     return x;
   }
-  // 캐싱하는 방법 :
+  // 경로 압축(Path Compression) 기법 : 매번 얻은 결과값을 일일이 저장
+  // - `arr[x] = ` 이 없는 코드는 결과값을 union에서만 단 한 번 저장
+  // - 일반적인 경우에서는 차이가 없지만, 최악의 경우에서 차이가 발생
   return (arr[x] = getParent(arr[x]));
 }
 
