@@ -5,4 +5,4 @@ input*
 result*
 output*
 .DS_Store
-other/
+tmp/
