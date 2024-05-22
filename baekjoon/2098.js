@@ -91,3 +91,5 @@ console.log(res);
 // - 대상 경로 : 2 -> (4, 3으로 만들 수 있는 모든 조합) -> 1
 // - 최소값 : 25 = 10(2 -> 4) + 9(4 -> 3) + 6(3 -> 1)
 // - 2 -> (4, 3으로 만들 수 있는 모든 조합) -> 1을 만족하는 모든 조합에서 이 최소값으로 캐싱이 가능하다
+
+// https://velog.io/@min_gi1123/c-%EB%B0%B1%EC%A4%80-2098-%EC%99%B8%ED%8C%90%EC%9B%90-%EC%88%9C%ED%9A%8C-Traveling-Salesman-problem-TSP-%EB%B9%84%ED%8A%B8%EB%A7%88%EC%8A%A4%ED%82%B9-bitmasking
