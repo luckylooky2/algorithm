@@ -1,4 +1,4 @@
-// 플로이드 : 그래프, 최단 경로, 플로이드
+// 플로이드 : 그래프, 최단 경로, 플로이드-워셜
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()

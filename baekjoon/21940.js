@@ -1,4 +1,4 @@
-// 가운데에서 만나기 : 그래프, 플로이드, 최단 경로, 브루트 포스
+// 가운데에서 만나기 : 그래프, 플로이드-워셜, 최단 경로, 브루트 포스
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -25,7 +25,7 @@ for (let [start, end, length] of paths) {
   distance[start - 1][end - 1] = length;
 }
 
-// 플로이드-와샬
+// 플로이드-워셜
 for (let i = 0; i < cityCnt; i++) {
   for (let j = 0; j < cityCnt; j++) {
     for (let k = 0; k < cityCnt; k++) {

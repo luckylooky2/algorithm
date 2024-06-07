@@ -1,4 +1,4 @@
-// 경로 찾기 : 그래프, 플로이드
+// 경로 찾기 : 그래프, 플로이드-워셜
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()

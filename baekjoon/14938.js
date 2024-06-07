@@ -1,4 +1,4 @@
-// 서강그라운드 : 최단 경로, 플로이드, 그래프
+// 서강그라운드 : 최단 경로, 플로이드-워셜, 그래프
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
