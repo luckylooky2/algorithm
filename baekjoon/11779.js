@@ -1,4 +1,4 @@
-// 최소 비용 구하기 2 : 그래프, 최단 경로, 플로이드-워셜, 다익스트라
+// 최소 비용 구하기 2 : 그래프, 최단 경로, 플로이드-워셜, 다익스트라, 재귀 호출
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
