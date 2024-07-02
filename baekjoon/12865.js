@@ -1,4 +1,4 @@
-// 평범한 배낭 : 동적 계획법
+// 평범한 배낭 : 동적 계획법, 배낭 문제
 
 const arr = require("fs")
   .readFileSync("/dev/stdin")
