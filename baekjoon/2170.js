@@ -1,4 +1,4 @@
-// 선 긋기 : 정렬, 이분 탐색
+// 선 긋기 : 정렬, 이분 탐색, 스위핑
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
