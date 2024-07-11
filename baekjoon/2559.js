@@ -1,4 +1,4 @@
-// 수열 : 누적 합
+// 수열 : 누적 합, 투 포인터
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
