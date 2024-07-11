@@ -1,4 +1,4 @@
-// 수들의 합 4 : 누적합
+// 수들의 합 4 : 누적 합
 const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -10,7 +10,7 @@ const arr = input.shift();
 let answer = 0;
 const sum = new Array(n).fill(0);
 
-// 0:i번째 인덱스까지 누적합을 담은 배열을 완성
+// 0:i번째 인덱스까지 누적 합을 담은 배열을 완성
 sum[0] = arr[0];
 for (let i = 1; i < sum.length; i++) {
   sum[i] = sum[i - 1] + arr[i];
@@ -44,7 +44,7 @@ for (let i = 0; i < n; i++) {
 
 console.log(answer);
 
-// 누적합 알고리즘
+// 누적 합 알고리즘
 
 // Try 1
 // - O(n^2) : 길이 n의 누적 합 배열을 만들고, 0번부터 현재 인덱스까지 현재 값을 더하면서 k이면 answer++
