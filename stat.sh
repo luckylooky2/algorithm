@@ -25,6 +25,8 @@ for number in "${arrayByLanguage[@]}"; do
 done
 
 echo "
+## Statistics
+
 | <div style="width:290px">Language</div>  | # of solved problems |
 |:---|---:|
 |![](https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=JavaScript&logoColor=white)|${arrayByLanguage[0]}|
@@ -38,4 +40,8 @@ echo "
 |![baekjoon]("https://github.com/luckylooky2/algorithm/assets/85822311/e3d22395-a1c3-4006-a99c-b21971b12460")|${arrayByPlatform[0]}|
 |![programmers]("https://github.com/luckylooky2/algorithm/assets/85822311/8756ee3f-d246-448f-a379-3d6462503a8e")|${arrayByPlatform[1]}|
 |Total| $((total - duplicate))|
+
+## Solved.ac Rank
+
+[![Solved.ac Profile](https://mazassumnida.wtf/api/v2/generate_badge?boj=luckylooky2)](https://solved.ac/luckylooky2/)
 " > README.md
