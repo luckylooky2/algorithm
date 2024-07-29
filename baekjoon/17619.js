@@ -8,12 +8,38 @@ const input = require("fs")
 const [n, q] = input[0];
 const logs = input.slice(1, 1 + n);
 const queries = input.slice(1 + n);
-const sorted = logs.map((v, i) => [...v, i + 1]).sort((a, b) => a[0] - b[0]);
+const sorted = logs.map((v, i) => [...v, i]).sort((a, b) => a[0] - b[0]);
 // union find?
-const parent = new Array(n + 1).fill(0).map((v, i) => i);
+const parent = new Array(n).fill(0).map((v, i) => i);
 let [start, end] = [0, 0];
 let curr = 0;
 let answer = [];
+
+function union(a, b) {
+  a = getParent(parent[a]);
+  b = getParent(parent[b]);
+
+  if (a > b) {
+    parent[a] = b;
+  } else {
+    parent[b] = a;
+  }
+}
+
+function getParent(x) {
+  if (parent[x] === x) {
+    return x;
+  }
+
+  return (parent[x] = getParent(parent[x]));
+}
+
+function find(a, b) {
+  a = getParent(parent[a]);
+  b = getParent(parent[b]);
+
+  return a === b;
+}
 
 for (let i = 0; i < sorted.length; i++) {
   const [s, e, y, number] = sorted[i];
@@ -28,15 +54,18 @@ for (let i = 0; i < sorted.length; i++) {
       end = e;
       curr = number;
     } else {
-      start = Math.min(start, s);
-      end = Math.max(end, e);
+      union(number, curr);
+      if (end < e) {
+        end = e;
+        curr = number;
+      }
     }
-    parent[number] = curr;
   }
 }
 
+// cf> union이 한 번만 호출되면 두 값이 일치하지 않을 수 있다
 for (const [log1, log2] of queries) {
-  if (parent[log1] === parent[log2]) {
+  if (find(parent[log1 - 1], parent[log2 - 1])) {
     answer.push(1);
   } else {
     answer.push(0);
