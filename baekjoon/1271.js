@@ -1,4 +1,4 @@
-// 엄청난 부자2
+// 엄청난 부자2 : 수학
 const [n, m] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
