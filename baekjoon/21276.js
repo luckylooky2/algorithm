@@ -22,15 +22,19 @@ residentArr.forEach((v, i) => {
 });
 
 for (let [lower, upper] of edges) {
+  // 조상 기준으로 값 증가
   indegree[residentMap[upper]]++;
+  // 후손 중심으로 조상 저장
   if (!edgeGraph[lower]) {
     edgeGraph[lower] = {};
   }
   edgeGraph[lower][upper] = true;
+  // 조상 중심으로 후손 저장
   if (!reverseEdgeGraph[upper]) {
     reverseEdgeGraph[upper] = {};
   }
   reverseEdgeGraph[upper][lower] = true;
+  // 그래프는 후손 중심으로 조상 배열 저장
   if (!graph[lower]) graph[lower] = [upper];
   else graph[lower].push(upper);
 }
@@ -39,6 +43,7 @@ const q = [];
 
 indegree.forEach((count, i) => {
   if (count === 0) {
+    // 후손이 큐에 추가
     q.push(residentMap[i]);
   }
 });
@@ -47,7 +52,9 @@ const family = [];
 
 // 기본 위상 정렬
 while (q.length !== 0) {
+  // top: 후손 이름
   const top = q.shift();
+  // 조상 배열이 나옴
   const uppers = graph[top];
   if (!uppers) {
     family.push(top);
@@ -71,10 +78,14 @@ for (let currPerson of residentArr) {
 
   if (reverseEdgeGraph[currPerson]) {
     // O(n)
+    // currPerson의 후손 배열을 순회
     Object.entries(reverseEdgeGraph[currPerson]).map((v) => {
       let flag = false;
       // O(n)
+      // 후손 입장에서 조상 배열을 순회
       for (let person of graph[v[0]]) {
+        // currPerson의 후손에 person(해당 후손 입장에서 조상)이 하나라도 있다면 해당 후손은 제외
+        // 중간 조상이 하나 이상 있다는 뜻이기 때문에
         if (reverseEdgeGraph[currPerson][person]) {
           flag = true;
           break;
