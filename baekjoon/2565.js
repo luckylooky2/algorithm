@@ -1,4 +1,4 @@
-// 전깃줄 : 동적 계획법
+// 전깃줄 : 동적 계획법, 가장 긴 증가하는 부분 수열
 const arr = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
