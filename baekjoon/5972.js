@@ -107,13 +107,14 @@ while (minHeap.size) {
 
   minHeap.pop();
   console.log(start, end, cost, shortest[end], cost);
-  if (shortest[end] > cost) {
-    shortest[end] = cost;
+  if (shortest[end] > cost + shortest[start]) {
+    // 확정이 되는 시점에 어떻게 모든 경우를 탐색했다고 확신할 수 있는가?
+    shortest[end] = cost + shortest[start];
     for (const [nextEnd, nextCost] of Object.entries(connected[end]).map(convertKeyTypeToNumber)) {
       const prev = shortest[end];
       // 연결된 것 중에 이미 최소값이 정해진 것은 제외
       if (nextCost !== Infinity && shortest[nextEnd] === Infinity) {
-        minHeap.push([start, nextEnd, nextCost + prev]);
+        minHeap.push([start, nextEnd, nextCost]);
       }
     }
   }
@@ -134,24 +135,26 @@ console.log(shortest[n]);
 // 1 -> 3 -> 5: 2
 
 // 오답: 현재 선택한 간선의 값 비교
-// [ null, [ 2, 4, 1 ], [ 1, 3, 2 ] ]	[ Infinity, 0, 1, Infinity, Infinity, Infinity ]
-// [ null, [ 4, 5, 1 ], [ 1, 3, 2 ] ]	[ Infinity, 0, 1, Infinity, 2, Infinity ]
-// [ null, [ 5, 3, 0 ], [ 1, 3, 2 ] ]	[ Infinity, 0, 1, Infinity, 2, 3 ]
-// [ null, [ 1, 3, 2 ] ]				[ Infinity, 0, 1, 3, 2, 3 ]
-// [ null ]								[ Infinity, 0, 1, 2, 2, 3 ]
+// [ null, [ 2, 4, 1 ], [ 1, 3, 2 ] ]	  [ Infinity, 0, 1, Infinity, Infinity, Infinity ]
+// [ null, [ 4, 5, 1 ], [ 1, 3, 2 ] ]	  [ Infinity, 0, 1, Infinity, 2, Infinity ]
+// [ null, [ 5, 3, 0 ], [ 1, 3, 2 ] ]	  [ Infinity, 0, 1, Infinity, 2, 3 ]
+// [ null, [ 1, 3, 2 ] ]				        [ Infinity, 0, 1, 3, 2, 3 ]
+// [ null ]								              [ Infinity, 0, 1, 2, 2, 3 ]
 // - 1 -> 2 -> 4 -> 5가 먼저 저장되고, 1 -> 3 -> 5에서 1 -> 3이 새로 업데이트될 때, 1 -> 3 -> 5가 업데이트되지 않는 문제
 // - 1 -> 3: 3에서 2로 업데이트 함에따라 이 경로를 사용하는 다른 경로도 최신화되어야 하는데 그렇지 않음
 // - 업데이트를 해준다면 상관없지만, 아래 방법을 사용하면 업데이트 과정이 필요없이 문제를 해결할 수 있음
 
 // 정답: 현재까지의 최소값 + 현재 선택한 간선의 값 비교
-// [ null, [ 1, 3, 2 ], [ 2, 4, 2 ] ]	[ Infinity, 0, 1, Infinity, Infinity, Infinity ]
-// [ null, [ 2, 4, 2 ], [ 3, 5, 2 ] ]	[ Infinity, 0, 1, 2, Infinity, Infinity ]
-// [ null, [ 3, 5, 2 ], [ 4, 5, 3 ] ]	[ Infinity, 0, 1, 2, 2, Infinity ]
-// [ null, [ 4, 5, 3 ] ]				[ Infinity, 0, 1, 2, 2, 2 ]
-// [ null ]								[ Infinity, 0, 1, 2, 2, 2 ]
+// [ null, [ 1, 3, 2 ], [ 1, 4, 2 ] ]	  [ Infinity, 0, 1, Infinity, Infinity, Infinity ]
+// [ null, [ 1, 4, 2 ], [ 1, 5, 2 ] ]	  [ Infinity, 0, 1, 2, Infinity, Infinity ]
+// [ null, [ 1, 5, 2 ], [ 1, 5, 3 ] ]	  [ Infinity, 0, 1, 2, 2, Infinity ]
+// [ null, [ 1, 5, 3 ] ]		      		  [ Infinity, 0, 1, 2, 2, 2 ]
+// [ null ]							            	  [ Infinity, 0, 1, 2, 2, 2 ]
 // - start를 사용하지 않기 때문에 모두 1로 생각해도 됨
 // - 모든 경우의 수를 다 고려하기 떄문에 [4, 5, 3]이 [3, 5, 2]에 의해 적용되지 않게 됨
-// - 정점이 선택되면, 해당 정점까지의 최단 경로가 확정됨
+// - 정점이 선택되면, 해당 정점까지의 최단 경로가 확정됨(처음 Infinity에서 값이 할당될 때가 최단 경로임이 확정)
+// - 확정 당시에 다른 돌아오는 길이 있더라도, 음수가 아니라면 현재 길이 다른 길보다 작거나 같음
+// - *확정된 것들 중에서 제일 작은 간선을 더한 것은 반드시 최단 경로라는 것을 보장할 수 있기 때문*
 // - 즉, 큐에서 꺼낸 정점은 더 이상 갱신될 필요가 없는 최단 경로를 가진 정점
 
 // 우선순위 큐에서 비교해야 하는 값은 현재 선택한 간선의 값이 아니라 "현재까지의 최소값 + 현재 선택한 간선의 값"
