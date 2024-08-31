@@ -1,54 +1,34 @@
-// 선 긋기 : 정렬, 이분 탐색, 스위핑
+// 선 긋기 : 정렬, 스위핑
 const input = require("fs")
-  .readFileSync("/dev/stdin")
+  .readFileSync(0, "utf-8")
   .toString()
   .trim()
   .split("\n")
   .map((v) => v.split(" ").map((v) => Number(v)));
 const [n] = input.shift();
-const inputs = input.sort((a, b) => a[0] - b[0]);
+// 시작 지점 오름차순 정렬
+const lines = input.sort((a, b) => a[0] - b[0]);
+let answer = 0n;
+let [start, end] = [null, null];
 
-const lines = {};
-
-function upperBound(arr, curr, s = 0, e = arr.length - 1) {
-  const mid = Math.floor((s + e) / 2);
-
-  if (s === e) {
-    const [left, right] = [Number(arr[s][0]), arr[s][1]];
-    const [start, end] = curr;
-    if (end < left || start > right) {
-      lines[start] = end;
-    } else if (left <= start && end <= right) {
-    } else {
-      const [newStart, newEnd] = [Math.min(left, start), Math.max(end, right)];
-      delete lines[start];
-      lines[newStart] = newEnd;
-    }
-    return;
+for (const [left, right] of lines) {
+  if (start === null && end === null) {
+    start = left;
+    end = right;
+    continue;
   }
-
-  if (Number(arr[s][0]) >= curr[0]) {
-    upperBound(arr, curr, s, mid);
-  } else {
-    upperBound(arr, curr, mid + 1, e);
+  if (end < left) {
+    answer += BigInt(Math.abs(end - start));
+    start = left;
+    end = right;
+  } else if (end < right) {
+    end = right;
   }
 }
 
-for (const [start, end] of inputs) {
-  const arr = Object.entries(lines).sort((a, b) => Number(a[0]) - Number(b[0]));
+answer += BigInt(Math.abs(end - start));
 
-  if (arr.length) {
-    upperBound(arr, [start, end]);
-  } else {
-    lines[start] = end;
-  }
-}
-
-console.log(
-  Object.entries(lines)
-    .map(([start, end]) => [Number(start), end])
-    .reduce((arr, curr) => arr + (curr[1] - curr[0]), 0)
-);
+console.log(String(answer));
 
 // lower bound => upper bound
 
@@ -61,3 +41,8 @@ console.log(
 // 3. Object.entries()가 정렬이 되지 않기 때문에 정렬 필요
 // - O(n^2)이 될 수 있어서, 위 풀이는 틀릴 가능성이 있음
 // - 시작 지점으로 정렬을 하면, 시작 지점보다 이전 구간의 끝 지점이 작다면 절대 겹칠 일이 없으므로 앞의 경우는 생각하지 않아도 됨 => O(n)에 해결
+
+// 4. 스위핑
+// - 분리 집합으로도 풀 수는 있을 듯?
+// - 정렬: start가 왼쪽으로 확장하는 것을 고려하지 않아도 됨
+// - 분리 집합이 확정될 때, 차이를 결과 값에 합산
