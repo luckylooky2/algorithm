@@ -10,12 +10,12 @@ const edges = input;
 const shortest = new Array(n + 1).fill(Infinity);
 // connected 2차원 배열 메모리 초과 (50000 * 50000)
 const connected = new Array(n + 1).fill(null).map(() => new Object());
-const convertKeyTypeToNumber = ([k, v]) => [Number(k), v];
 
 shortest[1] = 0;
 
 for (const [start, end, cost] of edges) {
-  const prev = connected[start][end] === undefined ? Infinity : connected[start][end];
+  const prev =
+    connected[start][end] === undefined ? Infinity : connected[start][end];
   const min = Math.min(prev, cost);
   connected[start][end] = min;
   connected[end][start] = min;
@@ -78,7 +78,10 @@ class MinHeap {
           }
         } else {
           if (this.arr[curr][2] > this.arr[right][2]) {
-            [this.arr[curr], this.arr[right]] = [this.arr[right], this.arr[curr]];
+            [this.arr[curr], this.arr[right]] = [
+              this.arr[right],
+              this.arr[curr],
+            ];
           }
         }
         curr = isLeftSmall ? left : right;
@@ -96,7 +99,10 @@ class MinHeap {
 
 const minHeap = new MinHeap();
 
-for (const [end, cost] of Object.entries(connected[1]).map(convertKeyTypeToNumber)) {
+for (const [end, cost] of Object.entries(connected[1]).map(([k, v]) => [
+  Number(k),
+  v,
+])) {
   if (connected[1][end] !== undefined) {
     minHeap.push([1, end, cost]);
   }
@@ -106,20 +112,18 @@ while (minHeap.size) {
   const [start, end, cost] = minHeap.top();
 
   minHeap.pop();
-  console.log(start, end, cost, shortest[end], cost);
-  if (shortest[end] > cost + shortest[start]) {
-    // 확정이 되는 시점에 어떻게 모든 경우를 탐색했다고 확신할 수 있는가?
-    shortest[end] = cost + shortest[start];
-    for (const [nextEnd, nextCost] of Object.entries(connected[end]).map(convertKeyTypeToNumber)) {
+  if (shortest[end] > cost) {
+    shortest[end] = cost;
+    for (const [nextEnd, nextCost] of Object.entries(connected[end]).map(
+      ([k, v]) => [Number(k), v]
+    )) {
       const prev = shortest[end];
       // 연결된 것 중에 이미 최소값이 정해진 것은 제외
       if (nextCost !== Infinity && shortest[nextEnd] === Infinity) {
-        minHeap.push([start, nextEnd, nextCost]);
+        minHeap.push([end, nextEnd, nextCost + prev]);
       }
     }
   }
-
-  console.log(minHeap.arr, shortest);
 }
 
 console.log(shortest[n]);
