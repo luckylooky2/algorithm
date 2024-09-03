@@ -108,18 +108,18 @@ function solve() {
     minHeap.push([1, end, cost]);
   }
 
-  // 다익스트라
+  // 다익스트라 풀이
   while (minHeap.size) {
     // 우선순위 큐에서 누적
     const [start, end, cost] = minHeap.top();
     minHeap.pop();
-    // 최단 거리를 업데이트할 수 있으면
+    // **최단 거리를 업데이트할 수 있으면**
     if (shortest[end] > cost) {
-      // 업데이트
+      // 1. 업데이트
       shortest[end] = cost;
-      // 현재 업데이트한 끝 정점의 이전 배열에 시작 정점을 저장
+      // 2. 현재 업데이트한 끝 정점의 prev 배열에 시작 정점을 저장
       prev[end] = start;
-      // 인접 배열 순회
+      // 3. 인접 배열 순회
       for (const [nextEnd, nextCost] of adjacent[end]) {
         const prevCost = shortest[end];
         // 제외된 간선 및 최단 거리 확정 노드 제외
