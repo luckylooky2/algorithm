@@ -23,6 +23,13 @@ class MinHeap {
     let parent = Math.floor(this.size / 2);
 
     while (curr !== 1) {
+      // 추가 정렬 로직: 시간이 같을 때는 인덱스 내림차순으로 정렬
+      // - AND(||)로 이어짐에 주의
+      // if (
+      //   this.arr[curr][TIME] < this.arr[parent][TIME] ||
+      //   (this.arr[curr][TIME] === this.arr[parent][TIME] &&
+      //     this.arr[curr][INDEX] < this.arr[parent][INDEX])
+      // )
       if (this.arr[curr][TIME] < this.arr[parent][TIME]) {
         [this.arr[curr], this.arr[parent]] = [this.arr[parent], this.arr[curr]];
       }
