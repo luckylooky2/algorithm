@@ -9,14 +9,6 @@ const vertex = input;
 const A = input.shift();
 let sum = 0;
 
-function distance(ver1, ver2) {
-  return Math.sqrt(Math.pow(ver1[0] - ver2[0], 2) + Math.pow(ver1[1] - ver2[1], 2));
-}
-
-function slope(ver1, ver2) {
-  return (ver1[1] - ver2[1]) / (ver1[0] - ver2[0]);
-}
-
 for (let i = 0; i < vertex.length - 1; i++) {
   const B = vertex[i];
   const C = vertex[i + 1];
@@ -55,6 +47,7 @@ console.log(Math.abs(sum).toFixed(1));
 // - 내적: 한 벡터를 다른 벡터의 방향으로 투영(내적은 한 벡터가 다른 벡터에 얼마나 “겹쳐져 있는지”를 측정)하는 과정
 // - 즉, 두 벡터가 얼마나 같은 방향을 향하고 있는지를 측정
 // - 방향이 같을수록 내적의 값이 커지고, 수직일수록 내적이 0에 가까워짐
+// - 내적이 작아진 것은 두 벡터가 이전보다 약간 더 멀리 떨어져 있다는 것을 나타냄
 // - 결국, 두 벡터를 알면 평행사변형의 넓이를 알 수 있다
 // - cf> 외적 자체가 평행사변형의 넓이를 계산하는 기하학적 원리에서 나온 연산이기 때문
 // - 외적의 정의는 벡터가 만드는 기하학적 공간에서의 면적을 측정하는 방식. 이를 통해 두 벡터가 만드는 기하학적 공간의 넓이를 구할 수 있습니다
