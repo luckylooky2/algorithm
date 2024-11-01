@@ -40,7 +40,7 @@ for (const elem of arr) {
       lis.push(elem);
     }
   } else {
-    // elem이 인덱스 중간에 위치한다면, ㅎ해당 인덱스에 값을 업데이트
+    // elem이 인덱스 중간에 위치한다면, 해당 인덱스에 값을 업데이트
     lis[index] = elem;
   }
 }
